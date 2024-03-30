@@ -11,7 +11,7 @@
 
 # ansi escape codes for fg color:
 
-datecolor=46
+datecolor=40
 
 # black: 30
 # red: 31
@@ -22,7 +22,7 @@ datecolor=46
 # cyan: 36
 # white: 37
 
-datefgcolor=30
+datefgcolor=36
 
 # ansi escape codes for font style:
 # bold: 1
@@ -45,12 +45,12 @@ logofgcolor=37
 
 # calendar bg
 
-calcolor=40
+calcolor=46
 
 # calendar fg
 
-calfgcolor=37
+calfgcolor=30
 
 # cool character that can be displayed in front of the calendar (leave empty for no character)
 
-coolchar=""
+coolchar=""
