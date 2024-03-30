@@ -87,7 +87,8 @@ drawDate() {
 	dateStr="$(date | awk '{print $1" "$2" "$3" "$4" "$6}')"
 	dateStrLen=${#dateStr}
 
-	echo -en "\033[7;$((termWidth / 2 - dateStrLen / 2))H"
+
+	echo -en "\033[$(($(getStartY 5) + 7));$(getStartXNew $dateStrLen)H"
 	echo $dateStr
 
 	echo -en "\033[0m"
@@ -154,50 +155,57 @@ getStartX() {
 	echo "$((termWidth / 2 - $1 / 2))"
 }
 
+getStartXNew() {
+	echo "$((termWidth / 2 - $1))"
+}
+
+getStartY() {
+	echo "$(((termHeight / 2 - $1 / 2) - 2))"
+}
 ## drawSplashText params = textLen: int
 
 drawSplashText() {
 	termWidth=$(getWidth)
-	echo -en "\033[1;$(getStartX 29)H"
+	echo -en "\033[$(getStartY 5);$(($(getStartXNew 29) + 3))H"
 	echo "   ____   ____   ____   ____  "
 
-	echo -en "\033[2;$(getStartX 29)H"
+	echo -en "\033[$(($(getStartY 5) + 1));$(($(getStartXNew 29) + 3))H"
 	echo " _/ __ \_/ __ \_/ __ \_/ ___\ "
 
-	echo -en "\033[3;$(getStartX 29)H"
+	echo -en "\033[$(($(getStartY 5) + 2));$(($(getStartXNew 29) + 3))H"
 	echo " \  ___/\  ___/\  ___/\  \___ "
 
-	echo -en "\033[4;$(getStartX 29)H"
+	echo -en "\033[$(($(getStartY 5) + 3));$(($(getStartXNew 29) + 3))H"
 	echo "  \___  >\___  >\___  >\___  >"
 
-	echo -en "\033[5;$(getStartX 29)H"
+	echo -en "\033[$(($(getStartY 5) + 4));$(($(getStartXNew 29) + 3))H"
 	echo "      \/     \/     \/     \/ "
 }
 
 drawCal() {
 	termWidth=$(getWidth)
+	termHeight=$(getHeight)
 	calLen=20
 
-	echo -en "\033[15;$(($termWidth / 2 - $calLen / 2))H"
-
+	echo -en "\033[$((($termHeight / 2 - 6 / 2)));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 2 {print}'
 
-	echo -en "\033[16;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 1));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 3 {print}'
 
-	echo -en "\033[17;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 2));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 4 {print}'
 
-	echo -en "\033[18;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 3));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 5 {print}'
 
-	echo -en "\033[19;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 4));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 6 {print}'
 
-	echo -en "\033[20;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 5));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 7 {print}'
 
-	echo -en "\033[21;$(($termWidth / 2 - $calLen / 2))H"
+	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 6));$(($termWidth / 2 + $calLen - 10))H"
 	cal | awk 'FNR == 8 {print}'
 }
 
