@@ -3,7 +3,7 @@
 
 eeec - or Extremely Elaborate Elegant Calendar - is a calendar utility in the terminal made 100% in the Bash programming language. It is very fast and useful.
 
-![](https://raw.githubusercontent.com/eeec-cal/eeec/main/20240330_15h48m49s_grim.png)
+![](https://raw.githubusercontent.com/eeec-cal/eeec/main/20240330_19h36m30s_grim.png)
 
 # Getting Started
 To install eeec, first clone the repo:
