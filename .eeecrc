@@ -1,5 +1,5 @@
-# for color, use ansi escape code
-# ansi escape codes for bg colors:
+
+# ansi escape codes for bg color:
 # black: 40
 # red: 41
 # green: 42
@@ -9,9 +9,20 @@
 # cyan: 46
 # white: 47
 
-
+# ansi escape codes for fg color:
 
 datecolor=46
+
+# black: 30
+# red: 31
+# green: 32
+# yellow: 33
+# blue: 34
+# magenta: 35
+# cyan: 36
+# white: 37
+
+datefgcolor=30
 
 # ansi escape codes for font style:
 # bold: 1
@@ -22,5 +33,24 @@ datecolor=46
 # strikethrough (i dont really know how this is useful but its here anyway): 9
 
 
-datestyle=4
+datestyle=3
 
+# logo bg
+
+logocolor=40
+
+# logo fg
+
+logofgcolor=37
+
+# calendar bg
+
+calcolor=40
+
+# calendar fg
+
+calfgcolor=37
+
+# cool character that can be displayed in front of the calendar (leave empty for no character)
+
+coolchar=""

@@ -76,13 +76,17 @@ getDateColor() {
 	echo $datecolor
 }
 
+getDateFgColor() {
+	echo $datefgcolor
+}
+
 drawDate() {
 	termWidth=$(getWidth)
 	termHeight=$(getHeight)
 
 	echo -en "\033[$(getDateColor)m"
 	echo -en "\033[$(getDateStyle)m"
-	echo -en "\033[30m"
+	echo -en "\033[$(getDateFgColor)m"
 
 	dateStr="$(date | awk '{print $1" "$2" "$3" "$4" "$6}')"
 	dateStrLen=${#dateStr}
@@ -164,22 +168,43 @@ getStartY() {
 }
 ## drawSplashText params = textLen: int
 
+getLogoColor() {
+	echo $logocolor
+}
+
+getLogoFgColor() {
+	echo $logofgcolor
+}
 drawSplashText() {
 	termWidth=$(getWidth)
+	echo -en "\033[$(getLogoColor)m"
+	echo -en "\033[$(getLogoFgColor)m"
+
 	echo -en "\033[$(getStartY 5);$(($(getStartXNew 29) + 3))H"
-	echo "   ____   ____   ____   ____  "
+	echo "   ____   ____   ____   ____   "
 
 	echo -en "\033[$(($(getStartY 5) + 1));$(($(getStartXNew 29) + 3))H"
-	echo " _/ __ \_/ __ \_/ __ \_/ ___\ "
+	echo " _/ __ \_/ __ \_/ __ \_/ ___\  "
 
 	echo -en "\033[$(($(getStartY 5) + 2));$(($(getStartXNew 29) + 3))H"
-	echo " \  ___/\  ___/\  ___/\  \___ "
+	echo " \  ___/\  ___/\  ___/\  \___  "
 
 	echo -en "\033[$(($(getStartY 5) + 3));$(($(getStartXNew 29) + 3))H"
-	echo "  \___  >\___  >\___  >\___  >"
+	echo "  \___  >\___  >\___  >\___  > "
 
 	echo -en "\033[$(($(getStartY 5) + 4));$(($(getStartXNew 29) + 3))H"
-	echo "      \/     \/     \/     \/ "
+	echo "      \/     \/     \/     \/  "
+
+	echo -en "\033[0m"
+
+}
+
+getCalColor() {
+	echo $calcolor
+}
+
+getCalFgColor() {
+	echo $calfgcolor
 }
 
 drawCal() {
@@ -187,26 +212,31 @@ drawCal() {
 	termHeight=$(getHeight)
 	calLen=20
 
+	echo -en "\033[$(getCalColor)m"
+	echo -en "\033[$(getCalFgColor)m"
+
 	echo -en "\033[$((($termHeight / 2 - 6 / 2)));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 2 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 2 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 1));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 3 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 3 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 2));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 4 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 4 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 3));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 5 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 5 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 4));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 6 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 6 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 5));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 7 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 7 {print}')  "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 6));$(($termWidth / 2 + $calLen - 10))H"
-	cal | awk 'FNR == 8 {print}'
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 8 {print}')  "
+
+	echo -en "\033[0m"
 }
 
 clear 
