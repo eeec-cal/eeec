@@ -13,7 +13,7 @@ git clone https://github.com/eeec-cal/eeec && cd eeec/
 
 And then run the `install.sh`:
 ```
-./install.sh
+bash install.sh
 ```
 
 And you're all set! Enjoy this cozy calendar app for ricing and/or other stuff!
