@@ -11,14 +11,9 @@ To install eeec, first clone the repo:
 git clone https://github.com/eeec-cal/eeec && cd eeec/
 ```
 
-Then, move the `.eeecrc` file in your home directory:
+And then run the `install.sh`:
 ```
-mv .eeecrc ~/
-```
-
-And finally, copy `eeec` into `/usr/bin/`:
-```
-sudo cp eeec /usr/bin/
+./install.sh
 ```
 
 And you're all set! Enjoy this cozy calendar app for ricing and/or other stuff!
