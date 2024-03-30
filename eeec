@@ -1,0 +1,206 @@
+#!/bin/bash
+# eeec: extremely elegant elaborated calendar
+# by totor
+#
+#
+#
+#
+# box characters: ─ │ ├ ┤ ┬ ┴ ╭ ╮ ╯ ╰  
+# idk ts just looks cool ◉ ▨ ◍ ▤ ◈
+#
+#
+# top text: 
+
+                             
+#   ____   ____   ____   ____  
+# _/ __ \_/ __ \_/ __ \_/ ___\ 
+# \  ___/\  ___/\  ___/\  \___ 
+#  \___  >\___  >\___  >\___  >
+#      \/     \/     \/     \/ 
+#
+#
+#
+#
+#IMPORTANT SHIT
+#Operator 	Description
+# ! EXPRESSION 	The EXPRESSION is false.
+# -n STRING 	The length of STRING is greater than zero.
+# -z STRING 	The lengh of STRING is zero (ie it is empty).
+# STRING1 = STRING2 	STRING1 is equal to STRING2
+# STRING1 != STRING2 	STRING1 is not equal to STRING2
+# INTEGER1 -eq INTEGER2 	INTEGER1 is numerically equal to INTEGER2
+# INTEGER1 -gt INTEGER2 	INTEGER1 is numerically greater than INTEGER2
+# INTEGER1 -lt INTEGER2 	INTEGER1 is numerically less than INTEGER2
+# -d FILE 	FILE exists and is a directory.
+# -e FILE 	FILE exists.
+# -r FILE 	FILE exists and the read permission is granted.
+# -s FILE 	FILE exists and it's size is greater than zero (ie. it is not empty).
+# -w FILE 	FILE exists and the write permission is granted.
+# -x FILE 	FILE exists and the execute permission is granted.
+
+
+
+
+
+# drawing functions
+
+
+
+getWidth() {
+	echo $(tput cols)
+}
+
+getHeight() {
+	echo $(tput lines)
+}
+
+getBoxStartX() {
+	echo $1
+}
+
+
+getBoxStartY() {
+	echo $1
+}
+
+drawDate() {
+	termWidth=$(getWidth)
+	termHeight=$(getHeight)
+
+	echo -en "\033[46;1m"
+	echo -en "\033[30;1m"
+
+	dateStr="$(date | awk '{print $1" "$2" "$3" "$4" "$6}')"
+	dateStrLen=${#dateStr}
+
+	echo -en "\033[7;$((termWidth / 2 - dateStrLen / 2))H"
+	echo $dateStr
+
+	echo -en "\033[0m"
+}
+
+## drawBox params = boxWidth: int, boxHeight: int, startX: int, startY: int, boxTitle: str
+
+drawBox() {
+	termWidth=$(getWidth)
+	termHeight=$(getHeight)
+
+	boxWidth=$1
+	boxHeight=$2
+
+	boxTitle=$5
+	boxTitleLen=${#boxTitle}
+
+	if [[ $(($boxTitleLen % 2)) -eq 1 ]]; then
+		titleStart=$(($(($boxTitleLen - 1)) / 2 - $boxWidth / 2))
+	else
+		titleStart=$(($boxTitleLen / 2 - $boxWidth / 2))
+	fi
+
+	echo -en "\033[$(getBoxStartX $3);$(getBoxStartY $4)H"
+
+
+
+	# actually outputting stuff lol
+
+	printf "╭"
+
+	for (( i=1; i<=$(($boxWidth - 2)); i++ )); do
+		printf "─"
+	done
+
+	printf "╮\n"
+
+	startPointX=$(getBoxStartX $3)
+	startPointY=$(getBoxStartY $4)
+
+	for (( i=1; i<=$(($boxHeight - 2)); i++ )); do
+		echo -en "\033[$startPointY;$startPointXH"
+		printf "│"
+		for (( j=1; j<=$(($boxWidth - 2)); j++ )); do
+			printf " "
+		done
+		printf "│\n"
+		startPointX=$(($startPointX+1))
+	done
+
+
+	printf "╰"
+
+	for (( i=1; i<=$(($boxWidth - 2)); i++ )); do
+		printf "─"
+	done
+
+	printf "╯\n"
+}
+
+## getStartX params = textLength: int
+
+getStartX() {
+	echo "$((termWidth / 2 - $1 / 2))"
+}
+
+## drawSplashText params = textLen: int
+
+drawSplashText() {
+	termWidth=$(getWidth)
+	echo -en "\033[1;$(getStartX 29)H"
+	echo "   ____   ____   ____   ____  "
+
+	echo -en "\033[2;$(getStartX 29)H"
+	echo " _/ __ \_/ __ \_/ __ \_/ ___\ "
+
+	echo -en "\033[3;$(getStartX 29)H"
+	echo " \  ___/\  ___/\  ___/\  \___ "
+
+	echo -en "\033[4;$(getStartX 29)H"
+	echo "  \___  >\___  >\___  >\___  >"
+
+	echo -en "\033[5;$(getStartX 29)H"
+	echo "      \/     \/     \/     \/ "
+}
+
+drawCal() {
+	termWidth=$(getWidth)
+	calLen=20
+
+	echo -en "\033[15;$(($termWidth / 2 - $calLen / 2))H"
+
+	cal | awk 'FNR == 2 {print}'
+
+	echo -en "\033[16;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 3 {print}'
+
+	echo -en "\033[17;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 4 {print}'
+
+	echo -en "\033[18;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 5 {print}'
+
+	echo -en "\033[19;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 6 {print}'
+
+	echo -en "\033[20;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 7 {print}'
+
+	echo -en "\033[21;$(($termWidth / 2 - $calLen / 2))H"
+	cal | awk 'FNR == 8 {print}'
+}
+
+clear 
+while :; do
+
+
+
+	clear
+	drawSplashText
+
+	# drawBox 60 20 10 $(($termWidth / 2 - 60 / 2)) "Hello"
+
+
+	drawDate
+	
+	drawCal
+
+	sleep 1
+done
