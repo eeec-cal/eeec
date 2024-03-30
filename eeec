@@ -1,4 +1,9 @@
 #!/bin/bash
+
+if [[ -e ~/.eeecrc ]]; then
+	. ~/.eeecrc
+fi
+
 # eeec: extremely elegant elaborated calendar
 # by totor
 #
@@ -63,12 +68,21 @@ getBoxStartY() {
 	echo $1
 }
 
+getDateStyle() {
+	echo $datestyle
+}
+
+getDateColor() {
+	echo $datecolor
+}
+
 drawDate() {
 	termWidth=$(getWidth)
 	termHeight=$(getHeight)
 
-	echo -en "\033[46;1m"
-	echo -en "\033[30;1m"
+	echo -en "\033[$(getDateColor)m"
+	echo -en "\033[$(getDateStyle)m"
+	echo -en "\033[30m"
 
 	dateStr="$(date | awk '{print $1" "$2" "$3" "$4" "$6}')"
 	dateStrLen=${#dateStr}

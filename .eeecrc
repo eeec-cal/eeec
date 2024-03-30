@@ -1,6 +1,26 @@
 # for color, use ansi escape code
+# ansi escape codes for bg colors:
+# black: 40
+# red: 41
+# green: 42
+# yellow: 43
+# blue: 44
+# magenta: 45
+# cyan: 46
+# white: 47
 
-datebgcol=46
 
 
+datecolor=46
+
+# ansi escape codes for font style:
+# bold: 1
+# faint: 2
+# italic: 3
+# underlined: 4
+# inverted: 7
+# strikethrough (i dont really know how this is useful but its here anyway): 9
+
+
+datestyle=4
 
