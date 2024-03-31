@@ -16,6 +16,7 @@ And then run the `install.sh`:
 bash install.sh
 ```
 
+To quit eeec, just press on the 'q' key.
 And you're all set! Enjoy this cozy calendar app for ricing and/or other stuff!
 
 # Configuration
