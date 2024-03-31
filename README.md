@@ -6,7 +6,20 @@ eeec - or Extremely Elaborate Elegant Calendar - is a calendar utility in the te
 ![](https://raw.githubusercontent.com/eeec-cal/eeec/main/20240330_19h36m30s_grim.png)
 
 # Getting Started
-To install eeec, first clone the repo:
+
+## Arch Linux AUR
+
+Eeec is available on the AUR, to install it on Arch Linux, just run:
+```
+yay -S eeec
+```
+Or:
+```
+paru -S eeec
+```
+
+## From the Github repo
+To install eeec from Github, first clone the repo:
 ```
 git clone https://github.com/eeec-cal/eeec && cd eeec/
 ```
