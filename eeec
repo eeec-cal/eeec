@@ -1,7 +1,9 @@
 #!/bin/bash
-
 if [[ -e ~/.eeecrc ]]; then
 	. ~/.eeecrc
+
+elif [[ -e $XDG_CONFIG_HOME/eeec/config ]]; then
+	. $XDG_CONFIG_HOME/eeec/config
 fi
 
 # eeec: extremely elegant elaborated calendar
@@ -239,12 +241,15 @@ drawCal() {
 	echo -en "\033[0m"
 }
 
-clear 
+
+
+
+
 while :; do
 
 
-
-	clear
+	echo -en "\033[2J"
+	echo -en "\033[?25l"
 	drawSplashText
 
 	# drawBox 60 20 10 $(($termWidth / 2 - 60 / 2)) "Hello"
@@ -254,5 +259,13 @@ while :; do
 	
 	drawCal
 
-	sleep 1
+	read -rsn1 -t 1 -p "" k
+
+	if [[ $k == "q" ]]; then
+		echo -en "\033[?25h"
+		exit
+	fi
 done
+
+
+
