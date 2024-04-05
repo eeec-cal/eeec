@@ -218,29 +218,28 @@ drawCal() {
 	echo -en "\033[$(getCalFgColor)m"
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2)));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 2 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 2 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 1));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 3 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 3 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 2));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 4 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 4 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 3));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 5 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 5 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 4));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 6 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 6 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 5));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 7 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 7 {print}') $coolchar2 "
 
 	echo -en "\033[$((($termHeight / 2 - 6 / 2) + 6));$(($termWidth / 2 + $calLen - 10))H"
-	printf " $coolchar "; echo "$(cal | awk 'FNR == 8 {print}')  "
+	printf " $coolchar "; echo "$(cal | awk 'FNR == 8 {print}') $coolchar2 "
 
 	echo -en "\033[0m"
 }
-
 
 
 
@@ -250,6 +249,7 @@ while :; do
 
 	echo -en "\033[2J"
 	echo -en "\033[?25l"
+
 	drawSplashText
 
 	# drawBox 60 20 10 $(($termWidth / 2 - 60 / 2)) "Hello"
@@ -259,12 +259,40 @@ while :; do
 	
 	drawCal
 
-	read -rsn1 -t 1 -p "" k
+	read -rsn1 -t 1 -p "" kCal
 
-	if [[ $k == "q" ]]; then
+
+	currentDateAndTime=$(date | awk '{print $2" "$3" "$4" "$5}')
+	if [[ $currentDateAndTime == "Apr 3 07:30:30 PM" ]]; then
+		clear
+		echo "Happy New Year!!"
+	fi
+
+	if [[ $kCal == "q" ]]; then
 		echo -en "\033[?25h"
 		exit
+	elif [[ $kCal == "t" ]]; then
+
+		echo -en "\033[?25h"
+		if [[ -d ~/.eeec ]]; then
+				if [[ -e ~/.eeec/tasks ]]; then
+					printf ""
+				else
+					touch ~/.eeec/tasks
+				fi
+			printf ""
+		else
+			mkdir ~/.eeec
+			touch ~/.eeec/tasks
+		fi
+
+		cat ~/.eeec/tasks
+
+		read -rsn1 -t 1 -p "" kTodo
+
 	fi
+
+
 done
 
 
