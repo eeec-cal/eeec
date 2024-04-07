@@ -53,4 +53,5 @@ calfgcolor=30
 
 # cool character that can be displayed in front of the calendar (leave empty for no character)
 
-coolchar=""
+coolchar=▒
+coolchar2=▒
