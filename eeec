@@ -93,67 +93,18 @@ drawDate() {
 	dateStr="$(date | awk '{print $1" "$2" "$3" "$4" "$6}')"
 	dateStrLen=${#dateStr}
 
+	if [[ $1 == "f" ]]; then
+		echo -en "\033[$((termHeight / 2));$((termWidth / 2 - dateStrLen / 2))H"
+	else
 
-	echo -en "\033[$(($(getStartY 5) + 7));$(getStartXNew $dateStrLen)H"
+		echo -en "\033[$(($(getStartY 5) + 7));$(getStartXNew $dateStrLen)H"
+	fi
 	echo $dateStr
 
 	echo -en "\033[0m"
 }
 
-## drawBox params = boxWidth: int, boxHeight: int, startX: int, startY: int, boxTitle: str
 
-drawBox() {
-	termWidth=$(getWidth)
-	termHeight=$(getHeight)
-
-	boxWidth=$1
-	boxHeight=$2
-
-	boxTitle=$5
-	boxTitleLen=${#boxTitle}
-
-	if [[ $(($boxTitleLen % 2)) -eq 1 ]]; then
-		titleStart=$(($(($boxTitleLen - 1)) / 2 - $boxWidth / 2))
-	else
-		titleStart=$(($boxTitleLen / 2 - $boxWidth / 2))
-	fi
-
-	echo -en "\033[$(getBoxStartX $3);$(getBoxStartY $4)H"
-
-
-
-	# actually outputting stuff lol
-
-	printf "╭"
-
-	for (( i=1; i<=$(($boxWidth - 2)); i++ )); do
-		printf "─"
-	done
-
-	printf "╮\n"
-
-	startPointX=$(getBoxStartX $3)
-	startPointY=$(getBoxStartY $4)
-
-	for (( i=1; i<=$(($boxHeight - 2)); i++ )); do
-		echo -en "\033[$startPointY;$startPointXH"
-		printf "│"
-		for (( j=1; j<=$(($boxWidth - 2)); j++ )); do
-			printf " "
-		done
-		printf "│\n"
-		startPointX=$(($startPointX+1))
-	done
-
-
-	printf "╰"
-
-	for (( i=1; i<=$(($boxWidth - 2)); i++ )); do
-		printf "─"
-	done
-
-	printf "╯\n"
-}
 
 ## getStartX params = textLength: int
 
@@ -243,6 +194,7 @@ drawCal() {
 
 
 
+normal=1
 
 while :; do
 
@@ -250,46 +202,41 @@ while :; do
 	echo -en "\033[2J"
 	echo -en "\033[?25l"
 
-	drawSplashText
+	if [[ $normal -eq 1 ]]; then
 
-	# drawBox 60 20 10 $(($termWidth / 2 - 60 / 2)) "Hello"
+		drawSplashText
+
+		# drawBox 60 20 10 $(($termWidth / 2 - 60 / 2)) "Hello"
 
 
-	drawDate
-	
-	drawCal
+		drawDate
+		
+		drawCal
+
+	fi
+	if [[ $fullscreen == 1 ]]; then
+		drawDate "f"
+	fi
 
 	read -rsn1 -t 1 -p "" kCal
 
 
-	currentDateAndTime=$(date | awk '{print $2" "$3" "$4" "$5}')
-	if [[ $currentDateAndTime == "Apr 3 07:30:30 PM" ]]; then
-		clear
-		echo "Happy New Year!!"
-	fi
 
 	if [[ $kCal == "q" ]]; then
 		echo -en "\033[?25h"
 		exit
-	elif [[ $kCal == "t" ]]; then
+	fi
 
-		echo -en "\033[?25h"
-		if [[ -d ~/.eeec ]]; then
-				if [[ -e ~/.eeec/tasks ]]; then
-					printf ""
-				else
-					touch ~/.eeec/tasks
-				fi
-			printf ""
-		else
-			mkdir ~/.eeec
-			touch ~/.eeec/tasks
-		fi
 
-		cat ~/.eeec/tasks
+	if [[ $kCal == "f" ]]; then
+		fullscreen=1
+		normal=0
+	fi
 
-		read -rsn1 -t 1 -p "" kTodo
 
+	if [[ $kCal == "n" ]]; then
+		normal=1
+		fullscreen=0
 	fi
 
 
