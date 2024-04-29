@@ -32,6 +32,9 @@ bash install.sh
 To quit eeec, just press on the 'q' key.
 And you're all set! Enjoy this cozy calendar app for ricing and/or other stuff!
 
+# Usage
+To enter fullscreen mode, press `f`. To go back to normal mode, press `n`.
+
 # Configuration
 The eeec configuration can be at either `~/.eeecrc` or `$XDG_CONFIG_HOME/eeec/config`. It's however you want! By default it's `~/.eeecrc`. You can find the default config in the repo. When you install eeec with the `install.sh` file, it also downloads the default config.
 
