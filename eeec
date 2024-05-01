@@ -234,7 +234,7 @@ while :; do
 	fi
 
 
-	if [[ $kCal == "n" ]]; then
+	if [[ $(echo $kCal | base64) == "Gwo=" ]]; then
 		normal=1
 		fullscreen=0
 	fi
