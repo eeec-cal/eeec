@@ -30,6 +30,7 @@ bash install.sh
 ```
 
 To quit eeec, just press on the 'q' key.
+To go on fullscreen mode, press 'f'. To go back to normal mode, press 'Esc'.
 And you're all set! Enjoy this cozy calendar app for ricing and/or other stuff!
 
 # Usage
